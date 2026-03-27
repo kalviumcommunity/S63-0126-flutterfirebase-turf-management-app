@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1059952502795",
+    "project_id": "orbit-1699f",
+    "storage_bucket": "orbit-1699f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059952502795:android:745ab014efb057d5b53f0e",
+        "android_client_info": {
+          "package_name": "com.example.klyro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGGdWJgHvj6VHvsLrpQv4oS3bGzKToKr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
