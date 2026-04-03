@@ -42,24 +42,9 @@ class AuthService {
     await _auth.signOut();
   }
 
-  Future<UserCredential> signInWithGoogle() async {
-    try {
-      final googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        throw Exception('Google sign-in cancelled.');
-      }
-      final googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      return await _auth.signInWithCredential(credential);
-    } on FirebaseAuthException catch (error) {
-      throw Exception(_mapAuthError(error));
-    } catch (_) {
-      throw Exception('Google sign-in failed. Please try again.');
-    }
-  }
+Future<UserCredential> signInWithGoogle() async {
+  throw UnimplementedError("Google Sign-In not supported on Web");
+}
 
   Future<void> changePassword({
     required String currentPassword,
