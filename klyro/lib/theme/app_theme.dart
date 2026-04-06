@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Colors based on the reference design
-  static const Color primaryGreen = Color(0xFF8CE13D); // The vivid green
-  static const Color darkGreen = Color(0xFF4C8F1E); // Darker shade of green
+  static const Color primaryGreen = Color(0xFFFF8A00); // The vivid orange
+  static const Color darkGreen = Color(0xFFD97200); // Darker shade of orange
   static const Color backgroundLight = Color(
-    0xFFF3F7F2,
-  ); // Very light greyish-green background
+    0xFFFFF9F2,
+  ); // Very light greyish-orange background
   static const Color navBarDark = Color(
     0xFF232522,
   ); // Almost black for bottom nav

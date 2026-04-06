@@ -327,7 +327,9 @@ class DashboardScreen extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(20),
             onTap: () {
-              if (index == 1 || index == 2) {
+              if (index == 0) {
+                Navigator.pushNamed(context, AppRoutes.calendar);
+              } else if (index == 1 || index == 2) {
                 Navigator.pushNamed(context, AppRoutes.createBooking);
               }
             },

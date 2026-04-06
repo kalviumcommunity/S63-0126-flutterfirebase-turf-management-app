@@ -9,6 +9,7 @@ import 'screens/signup_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/venue_details_screen.dart';
 import 'screens/venue_listing_screen.dart';
+import 'screens/my_calendar_screen.dart';
 import 'theme/app_theme.dart';
 import 'utils/app_logger.dart';
 
@@ -21,6 +22,7 @@ class AppRoutes {
   static const String venueDetails = '/venue-details';
   static const String venueListing = '/venue-listing';
   static const String createBooking = '/create-booking';
+  static const String calendar = '/calendar';
 }
 
 Future<void> main() async {
@@ -66,6 +68,7 @@ class TurfBookingApp extends StatelessWidget {
         AppRoutes.profile: (context) => const ProfileScreen(),
         AppRoutes.venueListing: (context) => const VenueListingScreen(),
         AppRoutes.createBooking: (context) => const CreateBookingScreen(),
+        AppRoutes.calendar: (context) => const MyCalendarScreen(),
       },
 
       // onGenerateRoute handles routes that need arguments
