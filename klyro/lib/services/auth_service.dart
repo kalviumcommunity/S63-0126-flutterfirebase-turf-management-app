@@ -1,29 +1,37 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+// Isolated Service Class managing Authentication connections to Firebase backend
 class AuthService {
+  // A private variable pointer holding the Firebase connection reference
   final FirebaseAuth _auth;
 
+  // Constructor defaults to standard FirebaseAuth.instance, but allows passing standard mocked variables during testing.
   AuthService({FirebaseAuth? auth}) : _auth = auth ?? FirebaseAuth.instance;
 
+  // Fetch the active account session payload out of Firebase natively
   User? getCurrentUser() {
     return _auth.currentUser;
   }
 
+  // Wraps Firebase account creation resolving async network callbacks
   Future<UserCredential> signUp({
     required String email,
     required String password,
   }) async {
     try {
+      // Calls Firebase server creating account natively
       return await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
     } on FirebaseAuthException catch (error) {
+      // If it fails (e.g. email exists), parse the error cleanly before tossing it to the UI
       throw Exception(_mapAuthError(error));
     }
   }
 
+  // Identical to SignUp logic pathway but directs towards logging inside an existing account securely.
   Future<UserCredential> login({
     required String email,
     required String password,
@@ -38,27 +46,33 @@ class AuthService {
     }
   }
 
+  // Force clears local authentication keychain terminating session logic immediately
   Future<void> logout() async {
     await _auth.signOut();
   }
 
-Future<UserCredential> signInWithGoogle() async {
-  throw UnimplementedError("Google Sign-In not supported on Web");
-}
+  // Placeholder preventing errors if execution attempts to link Google bindings dynamically without the plugin implementation loaded 
+  Future<UserCredential> signInWithGoogle() async {
+    throw UnimplementedError("Google Sign-In not supported on Web");
+  }
 
+  // Standard process mapping password overrides
   Future<void> changePassword({
     required String currentPassword,
     required String newPassword,
   }) async {
     final user = _auth.currentUser;
+    // Evaluates presence ensuring null blocks break before throwing network connection exceptions.
     if (user == null || user.email == null) {
       throw Exception('No authenticated user found.');
     }
     try {
+      // Create a fresh secure credential package (Firebase forces a secure refresh to touch passwords)
       final credential = EmailAuthProvider.credential(
         email: user.email!,
         password: currentPassword,
       );
+      // Validates against server and immediately executes overwrite if returned clean
       await user.reauthenticateWithCredential(credential);
       await user.updatePassword(newPassword);
     } on FirebaseAuthException catch (error) {
@@ -66,6 +80,7 @@ Future<UserCredential> signInWithGoogle() async {
     }
   }
 
+  // Giant String interpretation dictionary matching cryptic Backend mappings down to simple human paragraphs
   String _mapAuthError(FirebaseAuthException error) {
     switch (error.code) {
       case 'email-already-in-use':
@@ -87,6 +102,7 @@ Future<UserCredential> signInWithGoogle() async {
       case 'operation-not-allowed':
         return 'Email/password sign-in is not enabled.';
       default:
+        // Absolute fallback array if mapping string is entirely missing
         return error.message ?? 'Authentication error. Please try again.';
     }
   }
